@@ -8,7 +8,7 @@
 
 Стек технологий
 
- - Unity - Ui, front-end
+ - Unity - Ui, front-end 2020.3.16f
  - C++ (Kaldi) - распознавание речи (AI)
  - Python (Flask+SQLAlchemy) - back-end, database engine, NLP (AI)
  - SQLite - база данных (легко масштабируется в Postgres благодаря возможностям SQLAlchemy, но для MVP достаточно SQLite)
