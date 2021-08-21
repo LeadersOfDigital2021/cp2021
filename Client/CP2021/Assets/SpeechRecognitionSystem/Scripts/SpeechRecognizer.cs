@@ -5,8 +5,8 @@ using SpeechRecognitionSystem;
 using System.Threading;
 
 internal class SpeechRecognizer : MonoBehaviour {
-    public string LanguageModelDirPath = "SpeechRecognitionSystem/model/russian_small";
-    [SerializeField] private AudioClip m_audioClip;
+    public string LanguageModelDirPath = "SpeechRecognitionSystem/model/english_small";
+
     public void OnMicrophoneReady( IMicrophone microphone ) {
         if ( Application.platform == RuntimePlatform.Android ) {
             if ( !Permission.HasUserAuthorizedPermission( Permission.ExternalStorageWrite ) ) {
@@ -42,10 +42,9 @@ internal class SpeechRecognizer : MonoBehaviour {
     }
 
     private void Start( ) {
-        // if ( Application.platform != RuntimePlatform.Android ) {
-        //     onInitResult( Application.streamingAssetsPath + "/" + LanguageModelDirPath );
-        // }
-        recognize2( );
+        if ( Application.platform != RuntimePlatform.Android ) {
+            onInitResult( Application.streamingAssetsPath + "/" + LanguageModelDirPath );
+        }
     }
 
     private void FixedUpdate( ) {
@@ -117,30 +116,9 @@ internal class SpeechRecognizer : MonoBehaviour {
         int diff = pos - _lastSample;
         if ( diff > 0 ) {
             var samples = new float[ diff * _microphone.GetAudioClip( ).channels ];
-            var ac = m_audioClip;
+            var ac = _microphone.GetAudioClip( );
             if ( ac != null ) {
                 _microphone.GetAudioClip( ).GetData( samples, _lastSample );
-                if ( Application.platform != RuntimePlatform.Android ) {
-                    var t = new Thread( () => proccess( samples ) );
-                    t.Start( );
-                } else {
-                    proccess( samples );
-                }
-            }
-        }
-        _lastSample = pos;
-    }
-    
-    private void recognize2( ) {
-        
-        
-        int pos = 0;
-        int diff = pos - _lastSample;
-        if ( diff > 0 ) {
-            var samples = new float[ diff * m_audioClip.channels ];
-            var ac = m_audioClip;
-            if ( ac != null ) {
-                m_audioClip.GetData( samples, _lastSample );
                 if ( Application.platform != RuntimePlatform.Android ) {
                     var t = new Thread( () => proccess( samples ) );
                     t.Start( );
