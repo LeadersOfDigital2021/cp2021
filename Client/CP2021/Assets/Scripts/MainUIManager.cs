@@ -27,6 +27,9 @@ public class MainUIManager : MonoBehaviour
     [SerializeField]
     private GameObject speech;
 
+    [SerializeField]
+    private Transform content;
+
     private void Start()
     {
         firstFileLoader.FileLoaded += OnFileLoaded;
@@ -43,7 +46,6 @@ public class MainUIManager : MonoBehaviour
         loginScreen.SetActive(screen == loginScreen);
         mainScreen.SetActive(screen == mainScreen);
         newRecord.SetActive(screen == newRecord);
-        speech.SetActive(screen == newRecord);
         textRecorded.SetActive(screen == textRecorded);
         protocolScreen.SetActive(screen == protocolScreen);
         uploadScreen.SetActive(screen == uploadScreen);
@@ -57,6 +59,8 @@ public class MainUIManager : MonoBehaviour
     public void OpenNewRecordScreen()
     {
         OpenScreen(newRecord);
+        speech.SetActive(true);
+        content.localPosition = Vector3.zero;
     }
 
     public void OpenTextRecordedScreen()
