@@ -162,6 +162,7 @@ def gen_minutes():
         [db.session.add(orm.Minute(text = x['text'],
                                    sort_num = x['sort_num'],
                                    meeting_id = meeting.meeting_id)) for x in minutes]
+        db.session.commit()
         return  jsonify(result=minutes)
     
 # Запускаем сервис в случае старта как отдельного скрипта на 5000 порту с шифрованием (https)
