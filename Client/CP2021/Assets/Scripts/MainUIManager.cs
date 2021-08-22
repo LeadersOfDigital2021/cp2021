@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MainUIManager : MonoBehaviour
@@ -17,9 +18,24 @@ public class MainUIManager : MonoBehaviour
     [SerializeField]
     private GameObject protocolScreen;
 
+    [SerializeField]
+    private GameObject uploadScreen;
+
+    [SerializeField]
+    private CanvasSampleOpenFileText firstFileLoader;
+
+    [SerializeField]
+    private GameObject speech;
+
     private void Start()
     {
+        firstFileLoader.FileLoaded += OnFileLoaded;
         OpenScreen(loginScreen);
+    }
+
+    private void OnFileLoaded(Byte[] bytes)
+    {
+        OpenTextRecordedScreen();
     }
 
     private void OpenScreen(GameObject screen)
@@ -27,8 +43,10 @@ public class MainUIManager : MonoBehaviour
         loginScreen.SetActive(screen == loginScreen);
         mainScreen.SetActive(screen == mainScreen);
         newRecord.SetActive(screen == newRecord);
+        speech.SetActive(screen == newRecord);
         textRecorded.SetActive(screen == textRecorded);
         protocolScreen.SetActive(screen == protocolScreen);
+        uploadScreen.SetActive(screen == uploadScreen);
     }
 
     public void OpenMainScreen()
@@ -49,5 +67,10 @@ public class MainUIManager : MonoBehaviour
     public void OpenProtocolScreen()
     {
         OpenScreen(protocolScreen);
+    }
+
+    public void OpenUploadScreen()
+    {
+        uploadScreen.SetActive(true);
     }
 }
