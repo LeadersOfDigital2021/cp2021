@@ -648,6 +648,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainSceen
       objectReference: {fileID: 0}
+    - target: {fileID: 1053484907044403759, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2335379021309475587, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -672,6 +676,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3256301143623790053, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7392304e53b395e4ebe057324f7ec808, type: 2}
+    - target: {fileID: 3256301143623790053, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8519770115443416516, guid: 7392304e53b395e4ebe057324f7ec808, type: 2}
     - target: {fileID: 3399836199431584356, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -680,6 +692,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 729668577}
+    - target: {fileID: 3806379345572388020, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3979455467306097972, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -888,6 +904,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 729668577}
+    - target: {fileID: 9099449003515951171, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
 --- !u!1 &5430065202089381866 stripped
