@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MainUIManager : MonoBehaviour
@@ -30,14 +29,22 @@ public class MainUIManager : MonoBehaviour
     [SerializeField]
     private Transform content;
 
+    [SerializeField]
+    private GameObject protocol1;
+
+    [SerializeField]
+    private GameObject protocol2;
+
     private void Start()
     {
         firstFileLoader.FileLoaded += OnFileLoaded;
         OpenScreen(loginScreen);
     }
 
-    private void OnFileLoaded(Byte[] bytes)
+    private void OnFileLoaded()
     {
+        protocol1.SetActive(true);
+        protocol2.SetActive(false);
         OpenTextRecordedScreen();
     }
 
@@ -61,6 +68,9 @@ public class MainUIManager : MonoBehaviour
         OpenScreen(newRecord);
         speech.SetActive(true);
         content.localPosition = Vector3.zero;
+
+        protocol2.SetActive(true);
+        protocol1.SetActive(false);
     }
 
     public void OpenTextRecordedScreen()

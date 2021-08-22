@@ -355,6 +355,8 @@ MonoBehaviour:
   firstFileLoader: {fileID: 5430065202089381867}
   speech: {fileID: 178262285}
   content: {fileID: 1842357646}
+  protocol1: {fileID: 5430065202089381869}
+  protocol2: {fileID: 5430065202089381868}
 --- !u!114 &935524702 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3256301143623790053, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
@@ -664,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1287586438935648555, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.013582132
+      value: 0.000031364798
       objectReference: {fileID: 0}
     - target: {fileID: 2121607260129801287, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
       propertyPath: m_RootOrder
@@ -1494,6 +1496,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   output: 
+--- !u!1 &5430065202089381868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5309839274531796109, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+  m_PrefabInstance: {fileID: 5430065202089381865}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5430065202089381869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7526149042109408356, guid: 867ec62dbbda0164a8da88be11ea27b6, type: 3}
+  m_PrefabInstance: {fileID: 5430065202089381865}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6003979425386385594
 PrefabInstance:
   m_ObjectHideFlags: 0

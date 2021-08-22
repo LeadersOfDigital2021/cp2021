@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using SFB;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,7 +9,7 @@ using UnityEngine.UI;
 public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler
 {
     public Byte[] output;
-    public Action<Byte[]> FileLoaded;
+    public Action FileLoaded;
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
     // WebGL
@@ -55,6 +54,6 @@ public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler
         var loader = new WWW(url);
         yield return loader;
         output = loader.bytes;
-        FileLoaded?.Invoke(loader.bytes);
+        FileLoaded?.Invoke();
     }
 }
