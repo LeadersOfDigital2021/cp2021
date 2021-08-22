@@ -23,12 +23,14 @@ def apply_caching(response):
 # Авторизация
 @app.route("/auth",  methods=['POST'])
 def auth():
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
+    # username = request.json.get("username", None)
+    # password = request.json.get("password", None)
     # Дергаем базу
-    user_login = orm.User.query.filter(orm.User.email == username, orm.User.password_hash == password).first_or_404()
+    # user_login = orm.User.query.filter(orm.User.email == username, orm.User.password_hash == password).first_or_404()
     # Генерим токен
-    access_token = create_access_token(identity=user_login.user_id)
+    # access_token = create_access_token(identity=user_login.user_id)
+    # Авторизацию отключили для MVP
+    access_token = create_access_token(identity=1)
     return jsonify(access_token = access_token), 200
 
 # Создание встречи (тут должна быть интеграция с почтовым сервисом)
@@ -41,7 +43,8 @@ def create_meeting():
                               meeting_datetime_ts = meeting_body['meeting_datetime_ts'],
                               meeting_duration    = meeting_body['meeting_duration'],
                               meeting_place       = meeting_body['meeting_place'],
-                              owner_id            = utils.get_user_by_email(meeting_body['owner']),
+                              # owner_id            = utils.get_user_by_email(meeting_body['owner']),
+                              owner_id            = 1,
                               visible             = 1)
     db.session.add(new_meeting)
     # Крепим к встрече участников
@@ -56,18 +59,20 @@ def create_meeting():
 
 # Получить JSON со списком встреч
 @app.route("/get_meetings",  methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_meetings():
-    meetings = [x.serialize for x in orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    # meetings = [x.serialize for x in orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    meetings = [x.serialize for x in orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                                               orm.Meeting.visible > 0).all()]
     return jsonify(result=meetings)
 
 # Получить транскрипцию звуковых дорожек (текст встречи/стенограмму)
 @app.route("/get_transcript",  methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_transcript():
     # Проверка на права
-    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    # meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                        orm.Meeting.visible > 0,
                                        orm.Meeting.meeting_id == request.json.get("meeting_id", None)).first()
     if meeting is None:
@@ -83,10 +88,11 @@ def get_transcript():
 
 # Получить минутки встречи
 @app.route("/get_minutes_file",  methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_minutes_file():
     # Проверка на права
-    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    # meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                        orm.Meeting.visible > 0,
                                        orm.Meeting.meeting_id == request.json.get("meeting_id", None)).first()
     if meeting is None:
@@ -102,10 +108,11 @@ def get_minutes_file():
                      
 # Получить минутки встречи
 @app.route("/get_minutes",  methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_minutes():
     # Проверка на права
-    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    # meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+    meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                        orm.Meeting.visible > 0,
                                        orm.Meeting.meeting_id == request.json.get("meeting_id", None)).first()
     if meeting is None:
@@ -121,11 +128,12 @@ def get_minutes():
 
 # Распознание дорожек (распознаны на клиенте, но можно это сделать и на стороне сервера)
 @app.route("/recognize", methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def recognize():
     if request.method == "POST":
         external_id = request.json.get("meeting_id", None)
-        meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+        # meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+        meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                            orm.Meeting.visible > 0,
                                            orm.Meeting.meeting_id == external_id).first()
         max_number = orm.Record.query.filter(orm.Record.meeting_id == meeting.meeting_id).order_by(orm.Record.sort_num.desc()).first()
@@ -139,12 +147,13 @@ def recognize():
         
 # Сгенерировать минутки
 @app.route("/gen_minutes", methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def gen_minutes():
     # Проверка на права
     if request.method == "POST":
         external_id = request.json.get("meeting_id", None)
-        meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+        # meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == get_jwt_identity(),
+        meeting = orm.Meeting.query.filter(orm.Meeting.owner_id == 1,
                                            orm.Meeting.visible > 0,
                                            orm.Meeting.meeting_id == external_id).first()        
         records = orm.Record.query.filter(orm.Record.meeting_id == meeting.meeting_id).order_by(orm.Record.sort_num).all()
